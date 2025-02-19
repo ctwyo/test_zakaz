@@ -37,6 +37,7 @@ const AuthPage = () => {
         console.log(`RESULT ${JSON.stringify(result)}`);
         if (result.success) {
           router.push("/");
+          setUser(result.user);
           // return;
         } else {
           setAccessDenied(true);
