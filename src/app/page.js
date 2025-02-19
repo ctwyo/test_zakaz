@@ -17,6 +17,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useCart } from "./components/CartContext";
 import { useUser } from "./components/UserContext";
+import Script from "next/script";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -62,6 +63,10 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
+      <Script
+        src="https://telegram.org/js/telegram-web-app.js?56"
+        strategy="beforeInteractive"
+      />
       <Box
         sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
       >
