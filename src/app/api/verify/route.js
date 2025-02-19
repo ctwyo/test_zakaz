@@ -77,9 +77,9 @@ export async function POST(req) {
 
     console.log("🔗 Подключение к MongoDB выполнено успешно");
 
-    const allUsers = await usersCollection.find().toArray(); // Получаем все пользователи
+    // const allUsers = await usersCollection.find().toArray(); // Получаем все пользователи
 
-    console.log("📌 Результаты поиска в MongoDB всех users:", allUsers);
+    // console.log("📌 Результаты поиска в MongoDB всех users:", allUsers);
 
     const existingUser = await usersCollection.findOne({
       telegramId: String(user.id),

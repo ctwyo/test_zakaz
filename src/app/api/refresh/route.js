@@ -10,6 +10,7 @@ const getDb = async () => {
 export async function POST(req) {
   try {
     const refreshToken = req.cookies.get("refreshToken");
+    if (refreshToken) console.log(`refreshToken ${refreshToken}`);
 
     if (!refreshToken) {
       return NextResponse.json(
@@ -37,6 +38,7 @@ export async function POST(req) {
     }
 
     // Генерируем новый Access Token
+    console.log("Генерируем новый Access Token");
     const { accessToken } = generateTokens(user);
 
     return NextResponse.json({ accessToken });

@@ -28,6 +28,26 @@ export default function Home() {
 
   const categories = ["РМСК", "КСК", "КСО", "РМК", "ВСО", "ТПГ"];
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ initData: window.Telegram.WebApp.initData }),
+        });
+        const result = await res.json();
+        if (result.success) {
+          setUser(result.user);
+        }
+      } catch (error) {
+        console.error("Ошибка при получении пользователя:", error);
+      }
+    };
+
+    fetchUser();
+  }, [setUser]);
+
   const handleCategorySelect = (category) => {
     if (category) {
       setSelectedCategory(category);
