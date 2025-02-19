@@ -51,13 +51,7 @@ const AuthPage = () => {
     if (user) {
       router.push("/");
     }
-  }, []);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     router.push("/"); // Редиректим на главную страницу, когда пользователь успешно авторизован
-  //   }
-  // }, [user, router]);
+  }, [user]);
 
   return (
     <>
