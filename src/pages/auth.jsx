@@ -36,9 +36,9 @@ const AuthPage = () => {
         const result = await verifyRes.json();
         console.log(`RESULT ${JSON.stringify(result)}`);
         if (result.success) {
-          // setUser(result.user);
+          setUser(result.user);
           // router.push("/");
-          router.replace("/");
+          // router.replace("/");
           return;
         } else {
           setAccessDenied(true);
@@ -52,6 +52,12 @@ const AuthPage = () => {
 
     checkAuth();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      router.push("/"); // Редиректим на главную страницу, когда пользователь успешно авторизован
+    }
+  }, [user, router]);
 
   return (
     <>
