@@ -50,9 +50,12 @@ const AuthPage = () => {
     checkAuth();
   }, []);
 
-  if (user) {
-    router.push("/");
-  }
+  useEffect(() => {
+    // Редиректим на главную страницу после того как user изменится
+    if (user) {
+      router.push("/"); // Перенаправляем пользователя
+    }
+  }, [user, router]); // Зависимость от user
 
   return (
     <>
