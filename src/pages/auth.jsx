@@ -48,10 +48,11 @@ const AuthPage = () => {
     };
 
     checkAuth();
-    if (user) {
-      router.push("/");
-    }
-  }, [user]);
+  }, []);
+
+  if (user) {
+    router.push("/");
+  }
 
   return (
     <>
