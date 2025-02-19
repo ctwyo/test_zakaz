@@ -4,6 +4,9 @@ import clientPromise from "../../../lib/mongodb"; // Используем общ
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 
+const a = "1";
+const b = "2";
+
 export async function POST(req) {
   try {
     console.log("🔍 API вызван: /api/verify");
