@@ -49,7 +49,7 @@ const AuthPage = () => {
     };
 
     checkAuth();
-  }, [setUser]);
+  }, [setUser, user]);
 
   // useEffect(() => {
   //   // Редиректим на главную страницу после того как user изменится
