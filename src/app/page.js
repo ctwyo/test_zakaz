@@ -22,7 +22,7 @@ import Script from "next/script";
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const { user, setUser } = useUser();
   const { cart, addToCart, removeFromCart, totalItems } = useCart();
@@ -81,7 +81,9 @@ export default function Home() {
               <MenuIcon />
             </IconButton>
 
-            {user ? (
+            {loading ? ( // Проверяем, загружаем ли мы данные о пользователе
+              <CircularProgress color="inherit" />
+            ) : user ? (
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Typography variant="h6" sx={{ marginRight: 2 }}>
                   {user.username}
@@ -141,7 +143,6 @@ export default function Home() {
 
         <Cart open={isCartOpen} onClose={toggleCart} />
       </Box>
-      {/* <script src="https://telegram.org/js/telegram-web-app.js"></script> */}
     </div>
   );
 }
