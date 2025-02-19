@@ -24,7 +24,7 @@ export default function Home() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [products, setProducts] = useState([]);
 
-  const { user, setUser } = useUser();
+  const { user } = useUser();
   const { cart, addToCart, removeFromCart, totalItems } = useCart();
 
   const categories = ["РМСК", "КСК", "КСО", "РМК", "ВСО", "ТПГ"];
