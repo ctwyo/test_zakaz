@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import clientPromise from "../../../lib/mongodb";
-import { generateTokens } from "../../../utils/jwt";
 
 const getDb = async () => {
   const client = await clientPromise;
