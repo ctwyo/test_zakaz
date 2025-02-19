@@ -42,10 +42,12 @@ export default function Home() {
 
         if (result.success) {
           setUser(result.user);
-          console.log(user);
+          console.log(result.user); // Выводим результат, чтобы убедиться в успешном получении данных
         }
       } catch (error) {
         console.error("Ошибка при получении пользователя:", error);
+      } finally {
+        setLoading(false); // Закрываем индикатор загрузки
       }
     };
 
