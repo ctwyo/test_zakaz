@@ -9,6 +9,7 @@ import {
   AppBar,
   Toolbar,
   Badge,
+  CircularProgress,
 } from "@mui/material";
 import CategoryButton from "./components/CategoryButton";
 import ProductList from "./components/ProductList";
