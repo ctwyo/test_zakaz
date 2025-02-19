@@ -34,6 +34,7 @@ const AuthPage = () => {
         });
 
         const result = await verifyRes.json();
+        console.log(`RESULT ${result}`);
         if (result.success) {
           setUser(result.user);
           router.push("/");
