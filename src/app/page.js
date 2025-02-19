@@ -38,6 +38,7 @@ export default function Home() {
         });
         const result = await res.json();
         window.Telegram.WebApp.showAlert(JSON.stringify(result));
+        window.Telegram.WebApp.showAlert("privet kak dela");
         if (result.success) {
           setUser(result.user);
         }
