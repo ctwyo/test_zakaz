@@ -37,6 +37,7 @@ export default function Home() {
           body: JSON.stringify({ initData: window.Telegram.WebApp.initData }),
         });
         const result = await res.json();
+        console.log("🔍 Ответ от API:", result);
         if (result.success) {
           setUser(result.user);
         }
