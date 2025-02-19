@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // для редиректа
 import { Box, Typography, Paper, CircularProgress } from "@mui/material";
 import Script from "next/script";
+import { useUser } from "@/app/components/UserContext";
 
 const AuthPage = () => {
   const [loading, setLoading] = useState(true);
   const [accessDenied, setAccessDenied] = useState(false);
   const router = useRouter();
-  // const { setUser } = useContext(UserContext);
+  const { user, setUser } = useUser();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -28,7 +29,7 @@ const AuthPage = () => {
           const userData = await res.json();
 
           if (res.ok) {
-            // setUser(userData);
+            setUser(userData);
             router.push("/");
             return;
           }
