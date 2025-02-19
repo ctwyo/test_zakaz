@@ -29,21 +29,8 @@ export async function POST(req) {
       );
     }
 
-    // Генерируем токены
-    const { accessToken, refreshToken } = generateTokens(user);
-
-    // Устанавливаем refreshToken в httpOnly cookie
-    const response = NextResponse.json({
-      message: "Авторизация успешна",
-      accessToken,
-    });
-    response.cookies.set("refreshToken", refreshToken, {
-      httpOnly: true,
-      path: "/",
-      maxAge: 7 * 24 * 60 * 60,
-    });
-
-    return response;
+    // return response;
+    return NextResponse.json({ success: true, user: user });
   } catch (error) {
     console.error("❌ Ошибка при авторизации:", error);
     return NextResponse.json({ error: "Ошибка сервера" }, { status: 500 });

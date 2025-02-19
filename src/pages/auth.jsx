@@ -14,39 +14,6 @@ const AuthPage = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const accessToken = localStorage.getItem("accessToken");
-
-        // ✅ 1. Проверяем локальное хранилище
-        if (accessToken) {
-          const res = await fetch("/api/verify", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-            },
-          });
-
-          const userData = await res.json();
-
-          if (res.ok) {
-            router.push("/");
-            return;
-          }
-        }
-
-        // ✅ 2. Пробуем обновить accessToken через refreshToken
-        const refreshRes = await fetch("/api/refresh", {
-          method: "POST",
-          credentials: "include",
-        });
-        const refreshData = await refreshRes.json();
-
-        if (refreshData.accessToken) {
-          localStorage.setItem("accessToken", refreshData.accessToken);
-          router.push("/");
-          return;
-        }
-
         // ✅ 3. Если токенов нет — запрашиваем данные из Telegram
         if (!window.Telegram || !window.Telegram.WebApp) {
           setAccessDenied(true);
@@ -68,7 +35,6 @@ const AuthPage = () => {
 
         const result = await verifyRes.json();
         if (result.success) {
-          localStorage.setItem("accessToken", result.accessToken);
           setUser(result.user);
           router.push("/");
         } else {
