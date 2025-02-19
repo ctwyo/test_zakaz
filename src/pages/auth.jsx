@@ -8,7 +8,7 @@ const AuthPage = () => {
   const [loading, setLoading] = useState(true);
   const [accessDenied, setAccessDenied] = useState(false);
   const router = useRouter();
-  const { setUser } = useContext(UserContext);
+  // const { setUser } = useContext(UserContext);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -28,7 +28,7 @@ const AuthPage = () => {
           const userData = await res.json();
 
           if (res.ok) {
-            setUser(userData);
+            // setUser(userData);
             router.push("/");
             return;
           }
