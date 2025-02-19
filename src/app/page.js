@@ -38,10 +38,12 @@ export default function Home() {
           body: JSON.stringify({ initData: window.Telegram.WebApp.initData }),
         });
         const result = await res.json();
-        window.Telegram.WebApp.showAlert(JSON.stringify(result));
-        window.Telegram.WebApp.showAlert("privet kak dela");
+        // window.Telegram.WebApp.showAlert(JSON.stringify(result));
+        // window.Telegram.WebApp.showAlert("privet kak dela");
+
         if (result.success) {
           setUser(result.user);
+          console.log(user);
         }
       } catch (error) {
         console.error("Ошибка при получении пользователя:", error);
