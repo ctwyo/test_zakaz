@@ -29,7 +29,6 @@ const AuthPage = () => {
           const userData = await res.json();
 
           if (res.ok) {
-            setUser(userData);
             router.push("/");
             return;
           }
@@ -70,6 +69,7 @@ const AuthPage = () => {
         const result = await verifyRes.json();
         if (result.success) {
           localStorage.setItem("accessToken", result.accessToken);
+          setUser(result.user);
           router.push("/");
         } else {
           setAccessDenied(true);
