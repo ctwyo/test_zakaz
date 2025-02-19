@@ -9,7 +9,7 @@ const AuthPage = () => {
   const [loading, setLoading] = useState(true);
   const [accessDenied, setAccessDenied] = useState(false);
   const router = useRouter();
-  const { user, setUser } = useUser();
+  const { user, setUser } = useUser() || {};
 
   useEffect(() => {
     const checkAuth = async () => {
