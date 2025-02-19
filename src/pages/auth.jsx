@@ -37,6 +37,7 @@ const AuthPage = () => {
         console.log(`RESULT ${JSON.stringify(result)}`);
         if (result.success) {
           setUser(result.user);
+          router.push("/");
         } else {
           setAccessDenied(true);
         }
@@ -50,11 +51,11 @@ const AuthPage = () => {
     checkAuth();
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      router.push("/"); // Редиректим на главную страницу, когда пользователь успешно авторизован
-    }
-  }, [user, router]);
+  // useEffect(() => {
+  //   if (user) {
+  //     router.push("/"); // Редиректим на главную страницу, когда пользователь успешно авторизован
+  //   }
+  // }, [user, router]);
 
   return (
     <>
