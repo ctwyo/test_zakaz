@@ -1,8 +1,21 @@
-import React from "react";
-import { Box, Button, Typography } from "@mui/material";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle"; // Иконка ✅
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const ProductList = ({ category, addToCart, removeFromCart, cart }) => {
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isChecked, setIsChecked] = useState(false);
+
   const productLists = {
     РМСК: [
       'Монитор 24"',
@@ -29,33 +42,6 @@ const ProductList = ({ category, addToCart, removeFromCart, cart }) => {
       'Монитор 19"',
       "HDMI-VGA",
     ],
-    КСО: [
-      "0509",
-      "1750",
-      "Сканер",
-      "ФР",
-      "Mer 221f",
-      "ИБП",
-      "ИБП хвост",
-      "Фильтр 3м",
-      "5002",
-    ],
-    РМК: [
-      "Моноблок фронтол",
-      "Ключ фронтол",
-      "Сканер",
-      "ФР",
-      "Mer 221f",
-      "ДЯ",
-      "ИБП",
-      "ИБП хвост",
-      "Фильтр 3м",
-      "5001",
-      "5002",
-      'Монитор 19"',
-    ],
-    ВСО: ["1750", "0509", "Mer 221f", "Принтер", "Фильтр 3м", "Oncron"],
-    ТПГ: ["ТПГ Бизерба", "ТПГ Терра", "ТПГ Зебра", "ТПГ PC200"],
   };
 
   const products = category ? productLists[category] : [];
@@ -68,9 +54,20 @@ const ProductList = ({ category, addToCart, removeFromCart, cart }) => {
     );
   }
 
+  const handleOpen = (product) => {
+    setSelectedProduct(product);
+    setIsChecked(false);
+  };
+
+  const handleClose = () => setSelectedProduct(null);
+
+  const toggleCheckbox = () => setIsChecked(!isChecked);
+
+  const getCartName = () =>
+    isChecked ? `${selectedProduct} (С БП)` : selectedProduct;
+
   return (
     <Box sx={{ paddingTop: 0 }}>
-      {/* <Typography variant="h6">Список товаров ({category})</Typography> */}
       <Box
         sx={{
           display: "flex",
@@ -84,8 +81,8 @@ const ProductList = ({ category, addToCart, removeFromCart, cart }) => {
         }}
       >
         {products.map((product) => {
-          const isInCart = cart[product] > 0;
-          const count = cart[product] || 0;
+          const isInCart = cart[product] > 0 || cart[`${product} (С БП)`] > 0;
+          const count = cart[product] || cart[`${product} (С БП)`] || 0;
 
           return (
             <Box
@@ -104,7 +101,9 @@ const ProductList = ({ category, addToCart, removeFromCart, cart }) => {
                 "&:hover": {
                   backgroundColor: "#f0f0f0",
                 },
+                cursor: "pointer",
               }}
+              onClick={() => handleOpen(product)}
             >
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 {isInCart && <CheckCircleIcon sx={{ color: "#2e7d32" }} />}
@@ -122,7 +121,10 @@ const ProductList = ({ category, addToCart, removeFromCart, cart }) => {
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={() => removeFromCart(product)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeFromCart(product);
+                  }}
                 >
                   -
                 </Button>
@@ -130,7 +132,10 @@ const ProductList = ({ category, addToCart, removeFromCart, cart }) => {
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={() => addToCart(product)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    addToCart(product);
+                  }}
                 >
                   +
                 </Button>
@@ -139,6 +144,28 @@ const ProductList = ({ category, addToCart, removeFromCart, cart }) => {
           );
         })}
       </Box>
+
+      {/* Попап */}
+      <Dialog
+        open={!!selectedProduct}
+        onClose={handleClose}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle>{selectedProduct}</DialogTitle>
+        <DialogContent>
+          <FormControlLabel
+            control={<Checkbox checked={isChecked} onChange={toggleCheckbox} />}
+            label="С БП"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => removeFromCart(getCartName())}>-</Button>
+          <Typography variant="body1">{cart[getCartName()] || 0}</Typography>
+          <Button onClick={() => addToCart(getCartName())}>+</Button>
+          <Button onClick={handleClose}>Закрыть</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

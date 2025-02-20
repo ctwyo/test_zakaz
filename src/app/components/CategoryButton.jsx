@@ -7,7 +7,7 @@ const CategoryButton = ({ category, onClick, isSelected }) => {
       onClick={onClick}
       disableRipple // Отключаем анимацию всплеска
       sx={{
-        width: "100%",
+        width: "150px",
         height: "50px",
         marginBottom: 2,
         backgroundColor: isSelected ? "#ff5722" : "#3f51b5", // Активная кнопка ярко-оранжевая

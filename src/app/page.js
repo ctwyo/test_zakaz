@@ -123,7 +123,15 @@ export default function Home() {
             paddingRight: 2,
           }}
         >
-          <Box display="flex" flexDirection="column" mb={3}>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent={"center"}
+            alignItems={"center"}
+            flexWrap={"wrap"}
+            gap={"20px"}
+            mb={1}
+          >
             {categories.map((category) => (
               <CategoryButton
                 key={category}
