@@ -15,12 +15,14 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
+import { useUser } from "./UserContext";
 
 const Cart = ({ open, onClose }) => {
   const { cart, clearCart, totalItems, removeFromCart, addToCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const { user, setUser } = useUser();
 
   const filteredCart = Object.entries(cart).filter(([_, count]) => count > 0);
 
@@ -38,8 +40,8 @@ const Cart = ({ open, onClose }) => {
       count,
     }));
 
-    const fullName = "Ivan Ivanovich";
-    const userId = "123";
+    const username = user.username;
+    const userId = user.id;
 
     console.log("Кнопка нажата, отправляем запрос...");
     console.log("Отправляемые данные:", orderDetails);
@@ -48,7 +50,7 @@ const Cart = ({ open, onClose }) => {
       const response = await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderDetails, fullName, userId }),
+        body: JSON.stringify({ orderDetails, username, userId }),
       });
 
       if (!response.ok) throw new Error(`Ошибка запроса: ${response.status}`);

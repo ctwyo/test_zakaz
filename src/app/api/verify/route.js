@@ -91,6 +91,7 @@ export async function POST(req) {
         user: {
           username: user.username,
           photoUrl: user.photo_url || "",
+          id: user.id,
         },
       });
     } else {
