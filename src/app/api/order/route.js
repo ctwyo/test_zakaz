@@ -12,10 +12,10 @@ export async function POST(request) {
     const db = client.db("sample_mflix"); // Измени на свою базу, если нужно
 
     // Получаем данные из запроса
-    const { orderDetails, fullName, userId } = await request.json();
-    console.log("📦 Полученные данные:", { orderDetails, fullName, userId });
+    const { orderDetails, username, userId } = await request.json();
+    console.log("📦 Полученные данные:", { orderDetails, username, userId });
 
-    if (!orderDetails || !fullName || !userId) {
+    if (!orderDetails || !username || !userId) {
       console.warn("⚠️ Не все данные переданы!");
       return Response.json({ error: "Все поля обязательны" }, { status: 400 });
     }
@@ -23,7 +23,7 @@ export async function POST(request) {
     // Создаем объект заказа
     const newOrder = {
       orderDetails,
-      fullName,
+      username,
       userId,
       createdAt: new Date(),
     };
